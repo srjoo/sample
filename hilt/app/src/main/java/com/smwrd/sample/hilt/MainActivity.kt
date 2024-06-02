@@ -10,10 +10,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Divider
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.smwrd.sample.hilt.computer.Computer
@@ -67,13 +69,19 @@ class MainActivity : ComponentActivity() {
                             Text(text = con1.toString())
                             Text(text = con2.toString())
                         }
+                        Divider(
+                            color = Color.Red
+                        )
+                        ComputersLog(
+                            computers = coms
+                        )
+                        Divider(
+                            color = Color.Red
+                        )
                         ComputersLog(
                             // com1 = @ActivityScoped 로 선언되어 coms의 첫번째와 동일하다
                             // com2 = 스코프 선언이 되어 있지 않아 매번 새로 만들기 때문에 coms의 두번재와 com2는 서로 다른 인스턴스이다
-                            computers = coms.toMutableList().apply {
-                                add(com1)
-                                add(com2)
-                            }
+                            computers = listOf(com1, com2)
                         )
                     }
                 }
@@ -89,8 +97,12 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun ComputersLog(computers: List<Computer>, modifier: Modifier = Modifier) {
     Column(modifier = modifier) {
+        Divider(
+            color = Color.Blue
+        )
         computers.forEach {
             ComputerLog(computerLog = it.getLog(), modifier = Modifier.padding(10.dp))
+            Divider(color = Color.Blue)
         }
     }
 }
